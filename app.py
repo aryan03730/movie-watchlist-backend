@@ -4,6 +4,7 @@ from config import DB_URL, DEBUG
 from db import db
 from models import Movie
 from auth import auth_bp, login_required
+from recommendations import recs_bp
 from tmdb import search_movies as tmdb_search, get_movie_details as tmdb_details
 
 
@@ -33,6 +34,7 @@ def create_app():
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     db.init_app(app)
     app.register_blueprint(auth_bp)
+    app.register_blueprint(recs_bp)
 
     with app.app_context():
         db.create_all()
