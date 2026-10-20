@@ -16,6 +16,16 @@ def valid_year(year):
     return year is None or (isinstance(year, int) and 1888 <= year <= 2100)
 
 
+def parse_tmdb_year(value):
+    # TMDB sends "" or "0000" when a release date is unknown.
+    # Only keep a year the app itself considers valid; otherwise store nothing.
+    if value and str(value).isdigit():
+        year = int(value)
+        if valid_year(year):
+            return year
+    return None
+
+
 def create_app():
     app = Flask(__name__)
     CORS(app)
@@ -157,7 +167,7 @@ def create_app():
             user_id=g.user_id,
             tmdb_id=info["tmdb_id"],
             title=info["title"],
-            year=int(info["year"]) if (info["year"] and str(info["year"]).isdigit()) else None,
+            year=parse_tmdb_year(info.get("year")),
             notes=(info.get("overview") or None),
             poster_path=info.get("poster_path"),
         )
