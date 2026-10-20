@@ -1,6 +1,8 @@
-flask
-flask_sqlalchemy
-psycopg2-binary
-python-dotenv
-requests
-flask-cors
+Flask==3.1.3
+flask-cors==6.0.5
+Flask-SQLAlchemy==3.1.1
+psycopg2-binary==2.9.13
+PyJWT==2.15.1
+python-dotenv==1.2.4
+requests==2.34.2
+SQLAlchemy==2.1.5
